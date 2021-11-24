@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "790904493337",
+    "project_id": "gallery-app-97b77",
+    "storage_bucket": "gallery-app-97b77.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790904493337:android:02dbf92eeb847868d52188",
+        "android_client_info": {
+          "package_name": "com.lambui.photo_image"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "790904493337-c2tbf6l3i8ddg1o47ilitsvhl8su5d11.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3j4Y_P7hNKsQU_nmYg31Rg4hchBvuuqk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "790904493337-c2tbf6l3i8ddg1o47ilitsvhl8su5d11.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
