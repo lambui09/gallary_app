@@ -1,4 +1,4 @@
-package com.example.photo_image
+package com.lambui.photo_image
 
 import io.flutter.embedding.android.FlutterActivity
 
