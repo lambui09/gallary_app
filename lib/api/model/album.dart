@@ -19,7 +19,7 @@ class Album{
     );
   }
 
-  Map<String, dynamic> albumToJson(Album album) {
+  Map<String, dynamic> toJson(Album album) {
     return {
       'id': album.id,
       'title': album.title,
