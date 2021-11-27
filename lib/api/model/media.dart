@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 //https://developers.google.com/photos/library/guides/access-media-items
 @JsonSerializable()
 class Media {
-  String? id;
+  String id;
   String? description;
   String? productUrl;
   String? baseUrl;
@@ -15,7 +15,7 @@ class Media {
 
   factory Media.fromJson(Map<String, dynamic> json) {
     return Media(
-      json['id'] as String?,
+      json['id'] as String,
       json['description'] as String?,
       json['productUrl'] as String?,
       json['baseUrl'] as String?,

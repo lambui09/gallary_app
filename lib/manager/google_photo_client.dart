@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:path/path.dart' as path;
+import 'package:photo_image/api/model/media.dart';
 import 'package:photo_image/api/request/batch_create_media_items_request.dart';
 import 'package:photo_image/api/request/join_shared_album_request.dart';
 import 'package:photo_image/api/request/share_album_request.dart';
@@ -66,7 +67,8 @@ class GooglePhotoClient {
   Future<ShareAlbumResponse> shareAlbum(ShareAlbumRequest request) async {
     return http
         .post(
-        Uri.parse('https://photoslibrary.googleapis.com/v1/albums/${request.albumId}:share'),
+            Uri.parse(
+                'https://photoslibrary.googleapis.com/v1/albums/${request.albumId}:share'),
             headers: await _header)
         .then(
       (Response response) {
@@ -83,7 +85,8 @@ class GooglePhotoClient {
   Future<Album> getAlbum(GetAllAlbumsRequest request) async {
     return http
         .get(
-        Uri.parse('https://photoslibrary.googleapis.com/v1/albums/${request.albumId}'),
+            Uri.parse(
+                'https://photoslibrary.googleapis.com/v1/albums/${request.albumId}'),
             headers: await _header)
         .then(
       (Response response) {
@@ -100,8 +103,8 @@ class GooglePhotoClient {
   Future<ListAlbumsResponse> listAlbums() async {
     return http
         .get(
-        Uri.parse('https://photoslibrary.googleapis.com/v1/albums?'
-            'excludeNonAppCreatedData=true&pageSize=50'),
+            Uri.parse('https://photoslibrary.googleapis.com/v1/albums?'
+                'excludeNonAppCreatedData=true&pageSize=50'),
             headers: await _header)
         .then(
       (Response response) {
@@ -121,7 +124,7 @@ class GooglePhotoClient {
     return http
         .get(
             Uri.parse('https://photoslibrary.googleapis.com/v1/sharedAlbums?'
-            'pageSize=50&excludeNonAppCreatedData=true'),
+                'pageSize=50&excludeNonAppCreatedData=true'),
             headers: await _header)
         .then(
       (Response response) {
@@ -149,7 +152,7 @@ class GooglePhotoClient {
     // Make the HTTP request to upload the image. The file is sent in the body.
     return http
         .post(
-        Uri.parse('https://photoslibrary.googleapis.com/v1/uploads'),
+      Uri.parse('https://photoslibrary.googleapis.com/v1/uploads'),
       body: image.readAsBytesSync(),
       headers: await _header,
     )
@@ -166,7 +169,7 @@ class GooglePhotoClient {
       SearchMediaItemsRequest request) async {
     return http
         .post(
-        Uri.parse('https://photoslibrary.googleapis.com/v1/mediaItems:search'),
+      Uri.parse('https://photoslibrary.googleapis.com/v1/mediaItems:search'),
       body: jsonEncode(request),
       headers: await _header,
     )
@@ -182,12 +185,32 @@ class GooglePhotoClient {
     );
   }
 
+  Future<Media> getMediaItem(String id) async {
+    return http
+        .get(
+      Uri.parse('https://photoslibrary.googleapis.com/v1/mediaItems/$id'),
+      headers: await _header,
+    )
+        .then(
+      (Response response) {
+        if (response.statusCode != 200) {
+          print(response.reasonPhrase);
+          print(response.body);
+        }
+        return Media.fromJson(jsonDecode(response.body));
+      },
+    );
+  }
+
   Future<BatchCreateMediaItemsResponse> batchCreateMediaItems(
       BatchCreateMediaItemsRequest request) async {
     print(request.toJson(request));
     return http
-        .post(Uri.parse('https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate'),
-            body: jsonEncode(request), headers: await _header)
+        .post(
+            Uri.parse(
+                'https://photoslibrary.googleapis.com/v1/mediaItems:batchCreate'),
+            body: jsonEncode(request),
+            headers: await _header)
         .then((Response response) {
       if (response.statusCode != 200) {
         print(response.reasonPhrase);
