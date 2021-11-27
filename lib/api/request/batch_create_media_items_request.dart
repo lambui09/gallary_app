@@ -21,11 +21,9 @@ class BatchCreateMediaItemsRequest {
   factory BatchCreateMediaItemsRequest.fromJson(Map<String, dynamic> json) =>
       BatchCreateMediaItemsRequest(
           json['albumId'] as String,
-          (json['newMediaItems'] as List)
-              ?.map((e) => e == null
-              ? null
-              : NewMediaItem.fromJson(e as Map<String, dynamic>))
-              ?.toList(),
+          (json['newMediaItems'] as List<dynamic>)
+              .map((e) => NewMediaItem.fromJson(e as Map<String, dynamic>))
+              .toList(),
           json['albumPosition'] == null
               ? null
               : AlbumPosition.fromJson(

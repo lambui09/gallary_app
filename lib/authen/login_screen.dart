@@ -11,7 +11,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final isLoading = Stream.value("loadin");
+  final isLoading = Stream.value("loading");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,9 +58,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       elevation: 4,
                     ),
                     onPressed: signIn, child:
-                  isLoading.listen((event) {
-
-                  }, onDone: {}, onError: {}),
                   ),
                 ),
                 const SizedBox(

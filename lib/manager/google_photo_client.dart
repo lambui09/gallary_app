@@ -22,10 +22,10 @@ import '../api/response/share_album_response.dart';
 //https://betterprogramming.pub/the-minimum-guide-for-using-google-drive-api-with-flutter-9207e4cb05ba
 //https://codelabs.developers.google.com/codelabs/google-photos-sharing#4
 class GooglePhotoClient {
-  final http.Client _client;
+  final http.Client _clientL;
   final Future<Map<String, String>> _header;
 
-  GooglePhotoClient(this._header, this._client);
+  GooglePhotoClient(this._header, this._clientL);
 
   Future<Album> createAlbum(CreateAlbumRequest request) async {
     return http
@@ -197,4 +197,6 @@ class GooglePhotoClient {
       return BatchCreateMediaItemsResponse.fromJson(jsonDecode(response.body));
     });
   }
+
+  void dispose() {}
 }
