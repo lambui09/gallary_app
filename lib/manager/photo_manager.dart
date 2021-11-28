@@ -55,7 +55,6 @@ class PhotoManager {
     return _client?.getMediaItem(media.id);
   }
 
-  //bug o day
   Future<List<Media>> getPhotosFromAlbum(Album? album) {
     print(album?.id);
     if (album == null) {

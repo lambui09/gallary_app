@@ -23,35 +23,51 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Album>> snap) {
           if (snap.hasData) {
             final albums = snap.data ?? List.empty();
-            return ListView.builder(
-                itemCount: albums.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: Row(
-                      children: [
-                        Image.network(
-                          albums[index].coverPhotoBaseUrl ??
-                              Constants.imageDefault,
+            return GridView.count(
+              // crossAxisCount is the number of columns
+              crossAxisCount: 2,
+              // This creates two columns with two items in each column
+              children: List.generate(albums.length, (index) {
+                return GestureDetector(
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Stack(alignment: Alignment.bottomLeft, children: [
+                      Image.network(
+                        albums[index].coverPhotoBaseUrl ??
+                            Constants.imageDefault,
+                        fit: BoxFit.fill,
+                        width: 200,
+                        height: 320,
+                      ),
+                      Container(
+                        color: Colors.black.withOpacity(0.5),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Text(albums[index].title ?? "",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14)),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Center(
-                          child: Text(
-                            albums[index].title ?? "",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 30),
-                          ),
-                        )
-                      ],
+                      )
+                    ]),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    onTap: () {
-                      final album = albums[index];
-                      Navigator.of(context).pushNamed(ListImageScreen.routeName,
-                          arguments: album);
-                    },
-                  );
-                });
+                    elevation: 5,
+                    margin: const EdgeInsets.all(10),
+                  ),
+                  onTap: () {
+                    final album = albums[index];
+                    Navigator.of(context)
+                        .pushNamed(ListImageScreen.routeName, arguments: album);
+                  },
+                );
+              }),
+            );
           } else if (snap.hasError) {
             return const Center(
               child: Text(

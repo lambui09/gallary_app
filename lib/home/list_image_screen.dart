@@ -26,35 +26,50 @@ class _ListImageScreen extends State<ListImageScreen> {
         builder: (BuildContext context, AsyncSnapshot<List<Media>> snap) {
           if (snap.hasData) {
             final mediaList = snap.data ?? List.empty();
-            return ListView.builder(
-                itemCount: mediaList.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return GestureDetector(
-                    child: Row(
-                      children: [
-                        Image.network(
-                          mediaList[index].baseUrl ?? Constants.imageDefault,
+            return GridView.count(
+              // crossAxisCount is the number of columns
+              crossAxisCount: 2,
+              // This creates two columns with two items in each column
+              children: List.generate(mediaList.length, (index) {
+                return GestureDetector(
+                  child: Card(
+                    semanticContainer: true,
+                    clipBehavior: Clip.antiAliasWithSaveLayer,
+                    child: Stack(alignment: Alignment.bottomLeft, children: [
+                      Image.network(
+                        mediaList[index].baseUrl ?? Constants.imageDefault,
+                        fit: BoxFit.fill,
+                        width: 180,
+                        height: 300,
+                      ),
+                      Container(
+                        color: Colors.black.withOpacity(0.5),
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: <Widget>[
+                            Text(mediaList[index].filename ?? "",
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14)),
+                          ],
                         ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        Center(
-                          child: Text(
-                            mediaList[index].filename ?? "",
-                            style: const TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 30),
-                          ),
-                        )
-                      ],
+                      )
+                    ]),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
                     ),
-                    onTap: () {
-                      final media = mediaList[index];
-                      Navigator.of(context).pushNamed(
-                          DetailImageScreen.routeName,
-                          arguments: media);
-                    },
-                  );
-                });
+                    elevation: 5,
+                    margin: const EdgeInsets.all(10),
+                  ),
+                  onTap: () {
+                    final media = mediaList[index];
+                    Navigator.of(context).pushNamed(DetailImageScreen.routeName,
+                        arguments: media);
+                  },
+                );
+              }),
+            );
           } else if (snap.hasError) {
             print(snap.error!);
             print(snap.stackTrace);
