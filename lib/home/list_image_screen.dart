@@ -11,6 +11,7 @@ class ListImageScreen extends StatefulWidget {
   final Album album;
 
   const ListImageScreen({Key? key, required this.album}) : super(key: key);
+
   @override
   _ListImageScreen createState() => _ListImageScreen();
 }
