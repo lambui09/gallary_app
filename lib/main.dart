@@ -39,16 +39,12 @@ class _MyAppState extends State<MyApp> {
         switch (settings.name) {
           case ListImageScreen.routeName:
             {
-              final album = settings.arguments as Album; // Retrieve the value.
-              print('ablum');
-              print(album);
+              final album = settings.arguments as Album;
               return MaterialPageRoute(
                   builder: (_) => ListImageScreen(album: album));
             }
           case DetailImageScreen.routeName:
-            final media = settings.arguments as Media; // Retrieve the value.
-            print('media');
-            print(media);
+            final media = settings.arguments as Media;
             return MaterialPageRoute(
                 builder: (_) => DetailImageScreen(media: media));
         }

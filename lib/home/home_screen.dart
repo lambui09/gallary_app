@@ -17,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Photos')),
+      appBar: AppBar(title: const Text('Photos'), centerTitle: true),
       body: FutureBuilder<List<Album>>(
         future: PhotoManager.getInstance().getAlbums(),
         builder: (BuildContext context, AsyncSnapshot<List<Album>> snap) {

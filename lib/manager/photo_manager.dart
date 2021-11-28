@@ -34,7 +34,6 @@ class PhotoManager {
     try {
       final GoogleSignInAccount? user = await _googleSignIn.signIn();
       if (user == null) {
-        // User could not be signed in
         print('User could not be signed in.');
         return false;
       }

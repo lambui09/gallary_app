@@ -18,30 +18,18 @@ class _DetailImageScreen extends State<DetailImageScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Container(
-          margin: const EdgeInsets.only(right: 20),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      widget.media.baseUrl ?? Constants.imageDefault),
-                  fit: BoxFit.cover)),
-          child: Container(
-            padding: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(begin: Alignment.bottomRight, colors: [
-                  Colors.black.withOpacity(.8),
-                  Colors.black.withOpacity(.0),
-                ])),
-            child: Align(
-                alignment: Alignment.bottomLeft,
-                child: Text(
-                  widget.media.filename ?? "",
-                  style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16),
-                )),
+        appBar: AppBar(title: const Text('Detail'), centerTitle: true),
+        body: Center(
+          child: Card(
+            clipBehavior: Clip.antiAliasWithSaveLayer,
+            child: Image.network(
+              widget.media.baseUrl ?? Constants.imageDefault,
+              fit: BoxFit.cover,
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            elevation: 5,
           ),
         ),
       ),

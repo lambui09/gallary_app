@@ -20,7 +20,7 @@ class _ListImageScreen extends State<ListImageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('List Image')),
+      appBar: AppBar(title: const Text('List Image'), centerTitle: true),
       body: FutureBuilder<List<Media>>(
         future: PhotoManager.getInstance().getPhotosFromAlbum(widget.album),
         builder: (BuildContext context, AsyncSnapshot<List<Media>> snap) {
