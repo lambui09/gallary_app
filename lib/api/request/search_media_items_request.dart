@@ -24,12 +24,10 @@ class SearchMediaItemsRequest {
                 json['filters'] as Map<String, dynamic>),
       );
 
-  Map<String, dynamic> toJson(
-          SearchMediaItemsRequest searchMediaItemsRequest) =>
-      <String, dynamic>{
-        'albumId': searchMediaItemsRequest.albumId,
-        'pageSize': searchMediaItemsRequest.pageSize,
-        'pageToken': searchMediaItemsRequest.pageToken,
-        'filters': searchMediaItemsRequest.filters,
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'albumId': albumId,
+        'pageSize': pageSize,
+        'pageToken': pageToken,
+        'filters': filters?.toJson(),
       };
 }

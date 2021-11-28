@@ -1,13 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:convert' show json;
+
 //description: https://developers.google.com/photos/library/guides/manage-albums
-class Album{
+class Album {
   String? id;
   String? title;
   String? productUrl;
   bool? isWriteable;
   String? coverPhotoBaseUrl;
-  Album(this.id, this.title, this.isWriteable, this.productUrl, this.coverPhotoBaseUrl);
+  Album(this.id, this.title, this.isWriteable, this.productUrl,
+      this.coverPhotoBaseUrl);
   Album.toCreate(this.title);
   factory Album.fromJson(Map<String, dynamic> json) {
     return Album(

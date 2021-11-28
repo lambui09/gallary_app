@@ -110,7 +110,7 @@ class GooglePhotoClient {
       (Response response) {
         if (response.statusCode == 200) {
           print('respone listAlbums' + response.body);
-        }else{
+        } else {
           print('Error listAlbums ' + response.statusCode.toString());
         }
         return ListAlbumsResponse.fromJson(jsonDecode(response.body));
@@ -177,6 +177,7 @@ class GooglePhotoClient {
           print(response.reasonPhrase);
           print(response.body);
         }
+        print(response.body);
 
         return SearchMediaItemsResponse.fromJson(jsonDecode(response.body));
       },

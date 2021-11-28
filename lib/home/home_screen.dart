@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_image/api/model/album.dart';
+import 'package:photo_image/common/constants.dart';
 import 'package:photo_image/home/list_image_screen.dart';
 import 'package:photo_image/manager/photo_manager.dart';
 
@@ -13,8 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final imageDefault = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZJyXSqsW0n24rq00iirU3CWLJ9VwGwin_WA&usqp=CAU";
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,15 +29,26 @@ class _HomeScreenState extends State<HomeScreen> {
                   return GestureDetector(
                     child: Row(
                       children: [
-                        Image.network(albums[index].coverPhotoBaseUrl?? imageDefault,),
-                        const SizedBox(width: 20,),
-                        Center(child: Text(albums[index].title ?? "", style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),),)
+                        Image.network(
+                          albums[index].coverPhotoBaseUrl ??
+                              Constants.imageDefault,
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        Center(
+                          child: Text(
+                            albums[index].title ?? "",
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 30),
+                          ),
+                        )
                       ],
                     ),
-                    onTap: (){
-                      Navigator.of(context).pushNamed(ListImageScreen.routeName);
-                      final id = albums[index].id;
-
+                    onTap: () {
+                      final album = albums[index];
+                      Navigator.of(context).pushNamed(ListImageScreen.routeName,
+                          arguments: album);
                     },
                   );
                 });

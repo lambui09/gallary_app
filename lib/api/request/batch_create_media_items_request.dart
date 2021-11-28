@@ -11,7 +11,8 @@ class BatchCreateMediaItemsRequest {
   BatchCreateMediaItemsRequest(
       this.albumId, this.newMediaItems, this.albumPosition);
 
-  static BatchCreateMediaItemsRequest inAlbum(String uploadToken, String albumId, String description) {
+  static BatchCreateMediaItemsRequest inAlbum(
+      String uploadToken, String albumId, String description) {
     return BatchCreateMediaItemsRequest(
         albumId,
         <NewMediaItem>[NewMediaItem.simple(uploadToken, description)],
@@ -27,7 +28,7 @@ class BatchCreateMediaItemsRequest {
           json['albumPosition'] == null
               ? null
               : AlbumPosition.fromJson(
-              json['albumPosition'] as Map<String, dynamic>));
+                  json['albumPosition'] as Map<String, dynamic>));
 
   Map<String, dynamic> toJson(
           BatchCreateMediaItemsRequest batchCreateMediaItemsRequest) =>

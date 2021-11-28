@@ -13,9 +13,7 @@ class SearchMediaItemsRequestFilters {
                 json['mediaTypeFilter'] as Map<String, dynamic>),
       );
 
-  Map<String, dynamic> toJson(
-          SearchMediaItemsRequestFilters searchMediaItemsRequestFilters) =>
-      <String, dynamic>{
-        'mediaTypeFilter': searchMediaItemsRequestFilters.mediaTypeFilter,
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'mediaTypeFilter': mediaTypeFilter?.toJson(),
       };
 }

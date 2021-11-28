@@ -14,7 +14,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final isLoading = Stream.value("loading");
   final StreamController<bool> streamLogin = StreamController();
 
   @override
@@ -42,8 +41,8 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Padding(
             padding: const EdgeInsets.all(30.0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 StreamBuilder<bool>(
                     stream: streamLogin.stream,
@@ -57,13 +56,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               (a) => false,
                             );
                           });
-                          return const Text('Success');
+                          return const Text('Login Success');
                         } else {
                           return const CircularProgressIndicator();
                         }
                       } else if (snapshot.hasError) {
                         return const Text(
-                          'Error',
+                          'Login fail, please check network and information again',
                           style: TextStyle(color: Colors.red),
                         );
                       } else {
@@ -74,7 +73,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  child: const Text('Login'),
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(18.0),
+                              side: const BorderSide(color: Colors.red)))),
+                  child: const Text('Login with google'),
                   onPressed: () async {
                     streamLogin.sink.add(false);
                     final result = await PhotoManager.getInstance().signIn();

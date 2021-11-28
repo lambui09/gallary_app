@@ -14,13 +14,8 @@ class SearchMediaItemsRequestMediaTypeFilter {
             .toList(),
       );
 
-  Map<String, dynamic> toJson(
-          SearchMediaItemsRequestMediaTypeFilter
-              searchMediaItemsRequestMediaTypeFilter) =>
-      <String, dynamic>{
-        'mediaTypes': searchMediaItemsRequestMediaTypeFilter.mediaTypes
-            ?.map((e) => searchMediaItemsRequestMediaTypeEnumMap[e])
-            .toList(),
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'mediaTypes': mediaTypes,
       };
 }
 

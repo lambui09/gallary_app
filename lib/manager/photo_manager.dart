@@ -7,6 +7,9 @@ import 'package:photo_image/manager/google_photo_client.dart';
 import '../api/model/album.dart';
 import 'dart:async';
 
+import '../api/request/search_media_items_request_filters.dart';
+import '../api/request/search_media_items_request_media_type_filter.dart';
+
 class PhotoManager {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: <String>[
     'profile',
@@ -37,29 +40,51 @@ class PhotoManager {
       }
       print('User signed in.');
       return true;
-    }on Exception catch(e){
-        print(e);
-        return false;
+    } on Exception catch (e) {
+      print(e);
+      return false;
     }
   }
 
   Future<List<Album>> getAlbums() {
-    return _client?.listAlbums().then((value) => value.albums ?? [])?? Future.error(Exception("Client Null"));
+    return _client?.listAlbums().then((value) => value.albums ?? []) ??
+        Future.error(Exception("Client Null"));
   }
 
   Future<Media>? getMediaItem(Media media) {
     return _client?.getMediaItem(media.id);
   }
 
-  Future<List<Media>>? getPhotosFromAlbum(Album? album) {
+  //bug o day
+  Future<List<Media>> getPhotosFromAlbum(Album? album) {
+    print(album?.id);
+    if (album == null) {
+      return _client
+              ?.searchMediaItems(SearchMediaItemsRequest(
+                null,
+                100,
+                null,
+                SearchMediaItemsRequestFilters(
+                  SearchMediaItemsRequestMediaTypeFilter(
+                    [SearchMediaItemsRequestMediaType.PHOTO],
+                  ),
+                ),
+              ))
+              .then((value) => value.mediaItems ?? []) ??
+          Future.error(Exception("Client Null"));
+    }
+    print('vao day album null');
     return _client
-        ?.searchMediaItems(SearchMediaItemsRequest(album?.id, 100, null, null))
-        .then((value) =>
-            value.mediaItems
-                ?.where((element) =>
-                    element.mimeType?.startsWith('image/') ?? false)
-                .toList(growable: false) ??
-            []);
+            ?.searchMediaItems(
+              SearchMediaItemsRequest(album.id, 100, null, null),
+            )
+            .then((value) =>
+                value.mediaItems
+                    ?.where((element) =>
+                        element.mimeType?.startsWith('image/') ?? false)
+                    .toList(growable: false) ??
+                []) ??
+        Future.error(Exception("Client Null"));
   }
 
   Future<void> signOut() async {
@@ -68,7 +93,7 @@ class PhotoManager {
 
   static PhotoManager? instance = null;
 
-  static PhotoManager getInstance(){
+  static PhotoManager getInstance() {
     instance ??= PhotoManager();
     return instance!;
   }
