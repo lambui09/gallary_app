@@ -7,12 +7,20 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:790904493337:android:02dbf92eeb847868d52188",
+        "mobilesdk_app_id": "1:790904493337:android:fcd82812d82373ebd52188",
         "android_client_info": {
           "package_name": "com.lambui.photo_image"
         }
       },
       "oauth_client": [
+        {
+          "client_id": "790904493337-m2oacurc04fk8314jlhbjnpipv77k9o3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lambui.photo_image",
+            "certificate_hash": "1074068db8c2a37860e10d0fedd74b208c2ff859"
+          }
+        },
         {
           "client_id": "790904493337-c2tbf6l3i8ddg1o47ilitsvhl8su5d11.apps.googleusercontent.com",
           "client_type": 3
@@ -29,6 +37,13 @@
             {
               "client_id": "790904493337-c2tbf6l3i8ddg1o47ilitsvhl8su5d11.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "790904493337-i10k7ejufqgesidk3l4ufebumhosp6j9.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lambui.photoImage"
+              }
             }
           ]
         }

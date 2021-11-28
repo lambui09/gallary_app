@@ -34,7 +34,6 @@ dependencies:
   http: ^0.13.4
   loading_indicator: ^3.0.2
   font_awesome_flutter: ^9.2.0
-  flutter_provider: ^2.1.0
 
 
 

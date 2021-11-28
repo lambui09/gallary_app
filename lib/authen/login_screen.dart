@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:photo_image/home/home_screen.dart';
+import 'package:photo_image/manager/photo_manager.dart';
 
 class LoginScreen extends StatefulWidget {
   static String routeName = "/login";
@@ -12,6 +15,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final isLoading = Stream.value("loading");
+  final StreamController<bool> streamLogin = StreamController();
+
+  @override
+  void dispose() {
+    streamLogin.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,43 +45,52 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                FadeAnimation(
-                    1,
-                    const Text(
-                      "Brand New Perspective",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 40,
-                          fontWeight: FontWeight.bold),
-                    )),
+                StreamBuilder<bool>(
+                    stream: streamLogin.stream,
+                    builder:
+                        (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                      if (snapshot.hasData) {
+                        if (snapshot.data == true) {
+                          Future.delayed(const Duration(milliseconds: 200), () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              HomeScreen.routeName,
+                              (a) => false,
+                            );
+                          });
+                          return const Text('Success');
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      } else if (snapshot.hasError) {
+                        return const Text(
+                          'Error',
+                          style: TextStyle(color: Colors.red),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    }),
                 const SizedBox(
                   height: 20,
                 ),
+                ElevatedButton(
+                  child: const Text('Login'),
+                  onPressed: () async {
+                    streamLogin.sink.add(false);
+                    final result = await PhotoManager.getInstance().signIn();
+                    if (result) {
+                      streamLogin.sink.add(true);
+                    } else {
+                      streamLogin.sink.addError(Exception('Login Failure'));
+                    }
+                  },
+                )
                 //add
-                Center(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: const Color(0xFFde5246),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      padding: const EdgeInsets.all(8),
-                      elevation: 4,
-                    ),
-                    onPressed: signIn, child:
-                  ),
-                ),
-                const SizedBox(
-                  height: 100,
-                ),
               ],
             ),
           ),
         ),
       ),
     );
-  }
-  void signIn() async{
-
   }
 }

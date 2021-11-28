@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:photo_image/authen/login_screen.dart';
-import 'package:photo_image/manager/photo_manager.dart';
 import 'package:photo_image/routes.dart';
-import 'package:flutter_provider/flutter_provider.dart';
 //doc: https://developers.google.com/identity/protocols/oauth2/scopes
 
 void main() {
-  runApp(
-    Provider.factory((ctx) => PhotoManager(), child: const MyApp()),
-  );
+  runApp(MyApp(key: GlobalKey(),));
 }
 
 class MyApp extends StatefulWidget {

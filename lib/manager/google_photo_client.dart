@@ -104,17 +104,15 @@ class GooglePhotoClient {
     return http
         .get(
             Uri.parse('https://photoslibrary.googleapis.com/v1/albums?'
-                'excludeNonAppCreatedData=true&pageSize=50'),
+                'excludeNonAppCreatedData=false&pageSize=50'),
             headers: await _header)
         .then(
       (Response response) {
-        if (response.statusCode != 200) {
-          print(response.reasonPhrase);
-          print(response.body);
+        if (response.statusCode == 200) {
+          print('respone listAlbums' + response.body);
+        }else{
+          print('Error listAlbums ' + response.statusCode.toString());
         }
-
-        print(response.body);
-
         return ListAlbumsResponse.fromJson(jsonDecode(response.body));
       },
     );

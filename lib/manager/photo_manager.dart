@@ -5,7 +5,6 @@ import 'package:photo_image/api/request/search_media_items_request.dart';
 import 'package:photo_image/manager/google_photo_client.dart';
 
 import '../api/model/album.dart';
-import '../api/request/create_album_request.dart';
 import 'dart:async';
 
 class PhotoManager {
@@ -29,19 +28,23 @@ class PhotoManager {
   }
 
   Future<bool> signIn() async {
-    final GoogleSignInAccount? user = await _googleSignIn.signIn();
-
-    if (user == null) {
-      // User could not be signed in
-      print('User could not be signed in.');
-      return false;
+    try {
+      final GoogleSignInAccount? user = await _googleSignIn.signIn();
+      if (user == null) {
+        // User could not be signed in
+        print('User could not be signed in.');
+        return false;
+      }
+      print('User signed in.');
+      return true;
+    }on Exception catch(e){
+        print(e);
+        return false;
     }
-    print('User signed in.');
-    return true;
   }
 
-  Future<List<Album>>? getAlbums() {
-    return _client?.listAlbums().then((value) => value.albums ?? []);
+  Future<List<Album>> getAlbums() {
+    return _client?.listAlbums().then((value) => value.albums ?? [])?? Future.error(Exception("Client Null"));
   }
 
   Future<Media>? getMediaItem(Media media) {
@@ -50,7 +53,7 @@ class PhotoManager {
 
   Future<List<Media>>? getPhotosFromAlbum(Album? album) {
     return _client
-        ?.searchMediaItems(SearchMediaItemsRequest(album.id, 100, null, null))
+        ?.searchMediaItems(SearchMediaItemsRequest(album?.id, 100, null, null))
         .then((value) =>
             value.mediaItems
                 ?.where((element) =>
@@ -61,5 +64,12 @@ class PhotoManager {
 
   Future<void> signOut() async {
     await _googleSignIn.disconnect();
+  }
+
+  static PhotoManager? instance = null;
+
+  static PhotoManager getInstance(){
+    instance ??= PhotoManager();
+    return instance!;
   }
 }
