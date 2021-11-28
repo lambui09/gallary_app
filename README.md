@@ -3,9 +3,9 @@
 A new Flutter project.
 ## Getting Started
 ## Screenshots
-![](screen_shot/login.jpg) | ![](screen_shot/home.jpg)
-![](screen_shot/list_email.jpg) | ![](screen_shot/list_image_of_album.jpg)
-|[](screen_shot/detail.jpg)
+|![](screen_shot/login.jpg) | ![](screen_shot/home.jpg)
+|![](screen_shot/list_email.jpg) | ![](screen_shot/list_image_of_album.jpg)
+|![](screen_shot/detail.jpg)
 ## document:
 api:https://developers.google.com/photos/library/guides/overview
 The easiest way to call Rest APIs in Flutter: https://medium.com/mindful-engineering/retrofit-the-easiest-way-to-call-rest-apis-is-flutter-fe55d1e7c5c2
