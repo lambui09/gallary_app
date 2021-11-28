@@ -71,7 +71,6 @@ class PhotoManager {
               .then((value) => value.mediaItems ?? []) ??
           Future.error(Exception("Client Null"));
     }
-    print('vao day album null');
     return _client
             ?.searchMediaItems(
               SearchMediaItemsRequest(album.id, 100, null, null),

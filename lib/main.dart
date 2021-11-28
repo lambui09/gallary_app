@@ -6,7 +6,6 @@ import 'package:photo_image/home/list_image_screen.dart';
 import 'package:photo_image/routes.dart';
 
 import 'api/model/album.dart';
-//doc: https://developers.google.com/identity/protocols/oauth2/scopes
 
 void main() {
   runApp(MyApp(

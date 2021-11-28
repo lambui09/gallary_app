@@ -21,7 +21,6 @@ import '../api/response/search_media_items_response.dart';
 import '../api/response/share_album_response.dart';
 
 //https://betterprogramming.pub/the-minimum-guide-for-using-google-drive-api-with-flutter-9207e4cb05ba
-//https://codelabs.developers.google.com/codelabs/google-photos-sharing#4
 class GooglePhotoClient {
   final http.Client _clientL;
   final Future<Map<String, String>> _header;
@@ -139,15 +138,12 @@ class GooglePhotoClient {
   }
 
   Future<String> uploadMediaItem(File image) async {
-    // Get the filename of the image
     final String filename = path.basename(image.path);
-    // Set up the headers required for this request.
     final Map<String, String> headers = <String, String>{};
     headers.addAll(await _header);
     headers['Content-type'] = 'application/octet-stream';
     headers['X-Goog-Upload-Protocol'] = 'raw';
     headers['X-Goog-Upload-File-Name'] = filename;
-    // Make the HTTP request to upload the image. The file is sent in the body.
     return http
         .post(
       Uri.parse('https://photoslibrary.googleapis.com/v1/uploads'),
